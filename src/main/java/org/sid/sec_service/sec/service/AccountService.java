@@ -8,12 +8,16 @@ import java.util.List;
 public interface AccountService {
     //permet de ajouter un utilisateur
     AppUser addNewUser (AppUser appUser);
+
     //permet de ajouter un role
     AppRole addNewRole (AppRole approle);
+
     //permet de ajouter un role a un utilisateur
     void addRoleToUser (String username,String roleName);
+
     //permet de returner un utilisateur
     AppUser loadUserByUsername (String username);
+
     //permet de returnet un liste des utilisateur
     List<AppUser> listUsers();
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 @Entity
 @Data
@@ -16,6 +17,6 @@ public class AppUser {
     private String username;
     private String password;
     //un utilisateur peut avoir plusieur role et un role concerne plusieur utilisateur
-    @ManyToMany
-    private Collection<AppRole>appRoles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    public Collection<AppRole>appRoles=new ArrayList<>();
 }
