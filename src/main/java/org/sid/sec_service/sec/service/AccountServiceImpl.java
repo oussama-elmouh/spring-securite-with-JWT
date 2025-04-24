@@ -1,6 +1,6 @@
 package org.sid.sec_service.sec.service;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.sid.sec_service.sec.entities.AppRole;
 import org.sid.sec_service.sec.entities.AppUser;
 import org.sid.sec_service.sec.repo.AppRoleRepository;
