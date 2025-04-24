@@ -5,7 +5,7 @@ import org.sid.sec_service.sec.entities.AppRole;
 import org.sid.sec_service.sec.entities.AppUser;
 import org.sid.sec_service.sec.repo.AppRoleRepository;
 import org.sid.sec_service.sec.repo.AppUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,17 +15,21 @@ public class AccountServiceImpl implements AccountService {
 
     private AppUserRepository appUserRepository;
     private AppRoleRepository appRoleRepository;
+    private PasswordEncoder passwordEncoder;
 
 
-    public AccountServiceImpl(AppUserRepository appUserRepository, AppRoleRepository appRoleRepository) {
+    public AccountServiceImpl(AppUserRepository appUserRepository, AppRoleRepository appRoleRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.appRoleRepository = appRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
 
     @Override
     public AppUser addNewUser(AppUser appUser) {
+        String pw=appUser.getPassword();
+        appUser.setPassword(passwordEncoder.encode(pw));
         return appUserRepository.save(appUser);
     }
 
