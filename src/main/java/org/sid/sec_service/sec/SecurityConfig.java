@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -40,9 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure (HttpSecurity http) throws Exception {
-        //http.csrf().disable();
+        //Type                          | Session| CSRF   | Token  | Backend garde l’état ?
+        //Session-based (Stateful)      |  Oui   |  Oui   |  Non   |  Oui
+        //Token-based (JWT / Stateless) |  Non   |  Non   |  Oui   |  Non
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
-        http.formLogin();
+        http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+        //http.formLogin();
         http.authorizeRequests().anyRequest().authenticated();
     }
 }
